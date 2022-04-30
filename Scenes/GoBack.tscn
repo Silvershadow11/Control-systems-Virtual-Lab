@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Themes/not_selected_button.tres" type="StyleBox" id=1]
+[ext_resource path="res://Themes/selected_button.tres" type="StyleBox" id=2]
+[ext_resource path="res://Script/MenuButton.gd" type="Script" id=3]
+
+[sub_resource type="InputEventKey" id=1]
+scancode = 16777217
+
+[sub_resource type="ShortCut" id=2]
+shortcut = SubResource( 1 )
+
+[node name="Button" type="Button"]
+margin_right = 238.0
+margin_bottom = 66.0
+custom_styles/hover = ExtResource( 2 )
+custom_styles/pressed = ExtResource( 2 )
+custom_styles/focus = ExtResource( 2 )
+custom_styles/normal = ExtResource( 1 )
+shortcut = SubResource( 2 )
+text = "Go Back"
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+reference_path = "res://Scenes/Main Scene.tscn"

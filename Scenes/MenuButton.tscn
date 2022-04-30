@@ -1,0 +1,23 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Themes/not_selected_button.tres" type="StyleBox" id=1]
+[ext_resource path="res://Themes/selected_button.tres" type="StyleBox" id=2]
+[ext_resource path="res://Script/MenuButton.gd" type="Script" id=3]
+[ext_resource path="res://Fonts/ShareTechMono-Regular.ttf" type="DynamicFontData" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 23
+font_data = ExtResource( 4 )
+
+[node name="Button" type="Button"]
+margin_right = 238.0
+margin_bottom = 66.0
+custom_styles/hover = ExtResource( 2 )
+custom_styles/pressed = ExtResource( 2 )
+custom_styles/focus = ExtResource( 2 )
+custom_styles/normal = ExtResource( 1 )
+custom_fonts/font = SubResource( 1 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

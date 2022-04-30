@@ -1,0 +1,75 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Sprites/select_screen_bg.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/MenuButton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Fonts/ShareTechMono-Regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Scenes/GoBack.tscn" type="PackedScene" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 40
+font_data = ExtResource( 3 )
+
+[sub_resource type="InputEventKey" id=2]
+scancode = 16777217
+
+[sub_resource type="ShortCut" id=3]
+shortcut = SubResource( 2 )
+
+[node name="Main Screen" type="Node2D"]
+
+[node name="bgnd" type="Sprite" parent="."]
+position = Vector2( 512, 304 )
+scale = Vector2( 0.541308, 0.571768 )
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Title_Label" type="Label" parent="."]
+margin_left = 280.0
+margin_top = 16.1591
+margin_right = 753.0
+margin_bottom = 233.159
+custom_fonts/font = SubResource( 1 )
+text = "SELECT ONE OF THE BELOW..."
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Comp" parent="." instance=ExtResource( 2 )]
+margin_left = 560.0
+margin_top = 320.0
+margin_right = 798.0
+margin_bottom = 386.0
+focus_neighbour_left = NodePath("../Open_loop")
+focus_neighbour_right = NodePath("../Go Back")
+focus_neighbour_bottom = NodePath("../Go Back")
+text = "With Compensator"
+reference_path = "res://Scenes/Water.tscn"
+start_focused = true
+
+[node name="Open_loop" parent="." instance=ExtResource( 2 )]
+margin_left = 240.0
+margin_top = 320.0
+margin_right = 478.0
+margin_bottom = 386.0
+focus_neighbour_left = NodePath("../Go Back")
+focus_neighbour_right = NodePath("../Comp")
+focus_neighbour_bottom = NodePath("../Go Back")
+text = "Open Loop"
+reference_path = "res://Scenes/Open_loop.tscn"
+start_focused = true
+
+[node name="Go Back" parent="." instance=ExtResource( 4 )]
+margin_left = 424.0
+margin_top = 512.0
+margin_right = 608.0
+margin_bottom = 568.0
+focus_neighbour_left = NodePath("../Open_loop")
+focus_neighbour_top = NodePath("../Open_loop")
+focus_neighbour_right = NodePath("../Comp")
+shortcut = SubResource( 3 )
