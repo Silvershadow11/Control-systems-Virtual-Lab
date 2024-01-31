@@ -18,3 +18,9 @@ func _on_Button_Pressed():
 		get_tree().change_scene(reference_path)
 	else:
 		get_tree().quit()
+
+
+
+
+func _on_Button3_pressed() -> void:
+	pass # Replace with function body.

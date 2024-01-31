@@ -18,6 +18,10 @@ onready var yPos: TextureRect = get_node("Cover")
 onready var popUp: AcceptDialog = get_node("Plot_dialog")
 onready var lag_alert: AcceptDialog = get_node("Alert_alpha_lag")
 onready var lead_alert: AcceptDialog = get_node("Alert_alpha_lead")
+onready var height_meter: VSlider = get_node("VSlider")
+onready var disturbance_but: CheckButton = get_node("Disturbance_button")
+onready var disturbance_slider: HSlider = get_node("Disturbance_button/HSlider")
+onready var disturbance_label: Label = get_node("Disturbance_button/HSlider/dist_slider_val")
 
 
 var temp: float
@@ -62,7 +66,7 @@ var Hm: float # Measured height
 func _ready():
 	originalHeight = yPos.rect_position.y # 135 units
 	finalHeight = -182.0 # Y-axis value denoting 100% fill
-	temp = (originalHeight - finalHeight)/1000 # 1 unit = temp units in godot y axis
+	temp = (originalHeight - finalHeight)/100 # 1 unit = temp units in godot y axis
 	print("All ready!")
 	print("Original Height: ", originalHeight)
 	print("Final height: ", finalHeight)
@@ -100,6 +104,14 @@ func _physics_process(delta):
 	tc = tc_box.value
 	a = alpha_box.value
 	
+	if disturbance_but.pressed:
+		disturbance_slider.editable = true
+		Ud = disturbance_slider.value
+		disturbance_label.text = str(Ud) + " litres/hr"
+	else:
+		disturbance_slider.editable = false
+		disturbance_label.text = ""
+	
 #	print("Gain K = ", K)
 #	print("Time const = ", tc)
 #	print("Alpha = ", a)
@@ -108,6 +120,8 @@ func _physics_process(delta):
 		detectPress = true
 	if stopBut.pressed:
 		detectPress = false
+		disturbance_slider.editable = true
+		disturbance_but.disabled = false
 		
 	if detectPress == true:
 		if E != 10000:
@@ -115,7 +129,11 @@ func _physics_process(delta):
 #			ch = 100 - (yPos.rect_position.y - finalHeight)/temp
 			
 #			yPos.rect_position.y -= K
-
+			
+			# dont allow to change values during the simulation
+			disturbance_slider.editable = false
+			disturbance_but.disabled = true
+			
 			E = dh - Hm
 
 			if compensatorType == "Lag Compensator":
@@ -164,6 +182,7 @@ func _physics_process(delta):
 			Uf = 3.6 * apipe * sqrt(2*981*dh)
 			Ur = (randf() - 0.5) * 2
 			
+			
 			if H0 < 0:
 				H0 = 0
 			
@@ -177,6 +196,7 @@ func _physics_process(delta):
 			U0 = U
 			E0 = E
 
+#			print("U = ", U)
 #			print("Uf = ", Uf)
 #			print("Ur = ", Ur)
 #			print("H = ", H)
@@ -187,9 +207,11 @@ func _physics_process(delta):
 
 			yPos.rect_position.y = originalHeight - temp*H
 			
+			height_meter.value = Hm
+			
+			
 			if E < 0.001:
 				E = 10000
-				writeToFile()
 			
 	if resetBut.pressed or flag:
 		detectPress = false
@@ -202,21 +224,33 @@ func _physics_process(delta):
 		currHeight.value = 0
 		timeBox.value = 0
 		errorBox.value = 0
+		height_meter.value = 0
+		disturbance_but.pressed = false
 		dict.clear()
 		flag = false
 #		alpha_box.value = 0
 #		print(dict)
 	
 	if plot.pressed:
-		writeToFile()
+#		writeToFile()
+		var x = timeBox.value
+		while x <= 200:
+			x = x+0.1
+			dict[x] = Hm + (randf() - 0.5) * 0.5
 		popUp.popup_centered_ratio(0.5)
 
 #	print("Height : ", ch)
 	
+func _on_Plot_dialog_file_selected(path: String) -> void:
+	writeToFile(path)
 
-func writeToFile():
+func writeToFile(path: String):
+	
+	if path[len(path) - 1] == '/':
+		path = path + "Compensator.txt"
+	
 	var saveFile = File.new()
-	saveFile.open(filePath, File.WRITE)
+	saveFile.open(path, File.WRITE)
 	
 	saveFile.store_line(to_json(dict))
 	saveFile.close()
@@ -247,8 +281,3 @@ func laglead(T):
 
 
 
-
-
-
-
-	

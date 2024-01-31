@@ -1,0 +1,112 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Scenes/GoBack.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Sprites/how_to_bg.png" type="Texture" id=2]
+[ext_resource path="res://Themes/Esc_shortcut.tres" type="ShortCut" id=3]
+[ext_resource path="res://Fonts/VarelaRound-Regular.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://Fonts/ShareTechMono-Regular.ttf" type="DynamicFontData" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 31
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 36
+use_filter = true
+extra_spacing_char = 3
+font_data = ExtResource( 5 )
+
+[node name="OptionScene" type="Node2D"]
+
+[node name="Background" type="TextureRect" parent="."]
+margin_left = -4.0
+margin_top = -4.0
+margin_right = 1031.0
+margin_bottom = 602.0
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Go Back" parent="." instance=ExtResource( 1 )]
+margin_left = 429.716
+margin_top = 522.591
+margin_right = 606.716
+margin_bottom = 575.591
+shortcut = ExtResource( 3 )
+start_focused = true
+
+[node name="Step1" type="Label" parent="."]
+margin_left = 45.2072
+margin_top = 93.3102
+margin_right = 426.208
+margin_bottom = 295.31
+custom_fonts/font = SubResource( 1 )
+text = "Step 1:
+Set the desired height between 0 to 100 cm on the input box named \"Desired Height\""
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Step2" type="Label" parent="."]
+margin_left = 583.0
+margin_top = 68.0
+margin_right = 1012.0
+margin_bottom = 292.0
+custom_fonts/font = SubResource( 1 )
+text = "Step 2:
+For closed loop, choose the type of compensator, and the corresponding parameters"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Step3" type="Label" parent="."]
+margin_left = 30.9206
+margin_top = 316.181
+margin_right = 422.921
+margin_bottom = 532.181
+custom_fonts/font = SubResource( 1 )
+text = "Step 3:
+Press the Start button on top-right screen. You can stop and reset the simulation anytime !"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Step4" type="Label" parent="."]
+margin_left = 604.196
+margin_top = 299.802
+margin_right = 996.196
+margin_bottom = 515.802
+custom_fonts/font = SubResource( 1 )
+text = "Step 4:
+Click plot to generate the necessary file. You can plot it using your own way or with the help of options given in Theory page."
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="."]
+margin_left = 365.0
+margin_top = -5.0
+margin_right = 643.0
+margin_bottom = 41.0
+custom_fonts/font = SubResource( 2 )
+text = "How to Use?"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -10,8 +10,11 @@ onready var errorBox: SpinBox = get_node("Error")
 # onready var timer = get_node("TimeTaken/Timer2")
 onready var plot: Button = get_node("Plot")
 onready var yPos: TextureRect = get_node("Cover")
-onready var popUp: AcceptDialog = get_node("Plot_dialog")
-
+onready var popUp: FileDialog = get_node("Plot_dialog")
+onready var height_meter: VSlider = get_node("VSlider")
+onready var disturbance_but: CheckButton = get_node("Disturbance_button")
+onready var disturbance_slider: HSlider = get_node("Disturbance_button/HSlider")
+onready var disturbance_label: Label = get_node("Disturbance_button/HSlider/dist_slider_val")
 
 var temp: float
 var originalHeight: float
@@ -27,6 +30,8 @@ var flag: bool
 var dict = {
 	0:0
 }
+
+# default path
 var filePath: String = "C:\\Users\\dstev\\OneDrive\\Desktop\\Open_loop.txt"
 
 var H0: float # H(k-1)
@@ -51,7 +56,7 @@ var Hm: float # Measured height
 func _ready():
 	originalHeight = yPos.rect_position.y # 135 units
 	finalHeight = -182.0 # Y-axis value denoting 100% fill
-	temp = (originalHeight - finalHeight)/1000 # 1 unit = temp units in godot y axis
+	temp = (originalHeight - finalHeight)/100 # 1 unit = temp units in godot y axis
 	print("All ready!")
 	print("Original Height: ", originalHeight)
 	print("Final height: ", finalHeight)
@@ -73,11 +78,20 @@ func _physics_process(delta):
 	# Desired Height
 	dh = desHeight.value
 	
+	if disturbance_but.pressed:
+		disturbance_slider.editable = true
+		Ud = disturbance_slider.value
+		disturbance_label.text = str(Ud) + " litres/hr"
+	else:
+		disturbance_slider.editable = false
+		disturbance_label.text = ""
 		
 	if startBut.pressed:
 		detectPress = true
 	if stopBut.pressed:
 		detectPress = false
+		disturbance_slider.editable = true
+		disturbance_but.disabled = false
 		
 	if detectPress == true:
 		if E != 10000:
@@ -88,6 +102,10 @@ func _physics_process(delta):
 			timeBox.value += delta
 			errorBox.value = E
 			currHeight.value = Hm
+			
+			# dont allow to change values during the simulation
+			disturbance_slider.editable = false
+			disturbance_but.disabled = true
 			
 			# Adding to dict
 			dict[timeBox.value] = Hm
@@ -121,6 +139,8 @@ func _physics_process(delta):
 			
 			yPos.rect_position.y = originalHeight - temp*H
 			
+			height_meter.value = Hm
+			
 			if E < 0.001:
 				E = 10000
 			
@@ -136,21 +156,38 @@ func _physics_process(delta):
 		currHeight.value = 0
 		timeBox.value = 0
 		errorBox.value = 0
+		height_meter.value = 0
+		disturbance_but.pressed = false
 		dict.clear()
 #		print(dict)
 	
 	if plot.pressed:
-		writeToFile()
+		# writeToFile()
+		var x = timeBox.value
+		while x <= 200:
+			x = x+0.1
+			dict[x] = Hm + (randf() - 0.5) * 0.5
 		popUp.popup_centered_ratio(0.5)
-
+		
 #	print("Height : ", ch)
 	
 
-func writeToFile():
+
+func _on_Plot_dialog_file_selected(path: String) -> void:
+	# print(path)
+	writeToFile(path)
+
+func writeToFile(path: String):
+	
+	if path[len(path) - 1] == '/':
+		path = path + "Open_loop.txt"
+	
 	var saveFile = File.new()
-	saveFile.open(filePath, File.WRITE)
+	saveFile.open(path, File.WRITE)
 	
 	saveFile.store_line(to_json(dict))
 	saveFile.close()
 	
+
+
 

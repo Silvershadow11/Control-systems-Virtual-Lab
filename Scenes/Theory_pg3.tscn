@@ -1,0 +1,282 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://Scenes/GoBack.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Themes/Esc_shortcut.tres" type="ShortCut" id=2]
+[ext_resource path="res://Sprites/theory_bg.jpg" type="Texture" id=3]
+[ext_resource path="res://Sprites/tank_icon.jpg" type="Texture" id=4]
+[ext_resource path="res://Themes/VarelaFont.tres" type="DynamicFont" id=5]
+[ext_resource path="res://Fonts/ShareTechMono-Regular.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://Sprites/tank_block_diag.png" type="Texture" id=7]
+[ext_resource path="res://Script/Block_diag.gd" type="Script" id=8]
+[ext_resource path="res://Sprites/notes_icon.webp" type="Texture" id=9]
+[ext_resource path="res://Fonts/VarelaRound-Regular.ttf" type="DynamicFontData" id=10]
+[ext_resource path="res://Scenes/MenuButton.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Script/download_derv.gd" type="Script" id=12]
+[ext_resource path="res://Sprites/start_icon.png" type="Texture" id=13]
+[ext_resource path="res://Script/json_convert.gd" type="Script" id=14]
+[ext_resource path="res://Sprites/json_conv.png" type="Texture" id=15]
+[ext_resource path="res://Sprites/app_icon.jpeg" type="Texture" id=16]
+[ext_resource path="res://Script/Button4.gd" type="Script" id=17]
+
+[sub_resource type="DynamicFont" id=1]
+size = 38
+use_filter = true
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 31
+font_data = ExtResource( 10 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 23
+font_data = ExtResource( 6 )
+
+[node name="OptionScene" type="Node2D"]
+
+[node name="Background" type="TextureRect" parent="."]
+margin_right = 1035.0
+margin_bottom = 606.0
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Go_main" parent="." instance=ExtResource( 1 )]
+margin_left = 688.0
+margin_top = 320.0
+margin_right = 865.0
+margin_bottom = 373.0
+focus_neighbour_left = NodePath("../Menu_start")
+focus_neighbour_bottom = NodePath("../Previous")
+shortcut = null
+text = "Go to Main"
+
+[node name="Previous" parent="." instance=ExtResource( 1 )]
+margin_left = 688.0
+margin_top = 392.0
+margin_right = 865.0
+margin_bottom = 445.0
+focus_neighbour_left = NodePath("../Menu_start")
+focus_neighbour_top = NodePath("../Go_main")
+shortcut = ExtResource( 2 )
+text = "Previous"
+reference_path = "res://Scenes/Theory_pg2.tscn"
+start_focused = true
+
+[node name="Button" type="Button" parent="."]
+margin_left = 216.0
+margin_top = 112.0
+margin_right = 516.0
+margin_bottom = 175.0
+custom_fonts/font = ExtResource( 5 )
+text = "Water Tank system block diagram"
+align = 2
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="tank_icon" type="Sprite" parent="Button"]
+position = Vector2( 32, 32 )
+scale = Vector2( 0.092827, 0.126582 )
+texture = ExtResource( 4 )
+
+[node name="Label2" type="Label" parent="Button"]
+margin_left = 296.0
+margin_right = 388.0
+margin_bottom = 61.0
+custom_fonts/font = SubResource( 1 )
+text = "<--"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Button"]
+margin_left = -88.0
+margin_right = 4.0
+margin_bottom = 61.0
+custom_fonts/font = SubResource( 1 )
+text = "-->"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button2" type="Button" parent="."]
+margin_left = 216.0
+margin_top = 192.0
+margin_right = 516.0
+margin_bottom = 255.0
+custom_fonts/font = ExtResource( 5 )
+text = "Click here to download Derivation"
+align = 2
+script = ExtResource( 12 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="Button2"]
+margin_left = 296.0
+margin_right = 388.0
+margin_bottom = 61.0
+custom_fonts/font = SubResource( 1 )
+text = "<--"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Button2"]
+margin_left = -88.0
+margin_right = 4.0
+margin_bottom = 61.0
+custom_fonts/font = SubResource( 1 )
+text = "-->"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="notes_icon" type="Sprite" parent="Button2"]
+position = Vector2( 32, 32 )
+scale = Vector2( 0.00839619, 0.00764603 )
+texture = ExtResource( 9 )
+
+[node name="Button3" type="Button" parent="."]
+margin_left = 216.0
+margin_top = 272.0
+margin_right = 516.0
+margin_bottom = 335.0
+custom_fonts/font = ExtResource( 5 )
+text = "JSON to EXCEL Converter Online "
+align = 2
+script = ExtResource( 14 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="Button3"]
+margin_left = 296.0
+margin_right = 388.0
+margin_bottom = 61.0
+custom_fonts/font = SubResource( 1 )
+text = "<--"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Button3"]
+margin_left = -88.0
+margin_right = 4.0
+margin_bottom = 61.0
+custom_fonts/font = SubResource( 1 )
+text = "-->"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="notes_icon" type="Sprite" parent="Button3"]
+position = Vector2( 34.3826, 31.079 )
+scale = Vector2( 0.569853, 0.536489 )
+texture = ExtResource( 15 )
+
+[node name="Button4" type="Button" parent="."]
+margin_left = 216.0
+margin_top = 351.196
+margin_right = 516.0
+margin_bottom = 414.196
+custom_fonts/font = ExtResource( 5 )
+text = "Click to download Plot Application"
+align = 2
+script = ExtResource( 17 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="Button4"]
+margin_left = 296.0
+margin_right = 388.0
+margin_bottom = 61.0
+custom_fonts/font = SubResource( 1 )
+text = "<--"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Button4"]
+margin_left = -88.0
+margin_right = 4.0
+margin_bottom = 61.0
+custom_fonts/font = SubResource( 1 )
+text = "-->"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="app_icon" type="Sprite" parent="Button4"]
+position = Vector2( 36.1292, 31.6938 )
+scale = Vector2( 0.122354, 0.120274 )
+texture = ExtResource( 16 )
+
+[node name="WindowDialog" type="AcceptDialog" parent="."]
+margin_left = 56.0
+margin_top = 72.0
+margin_right = 944.0
+margin_bottom = 536.0
+window_title = "Water Tank System Block Diagram"
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="tank_block_diag" type="Sprite" parent="WindowDialog"]
+position = Vector2( 444, 220 )
+scale = Vector2( 0.482481, 0.569038 )
+texture = ExtResource( 7 )
+
+[node name="Title" type="Label" parent="."]
+margin_left = 25.2599
+margin_top = 34.8273
+margin_right = 692.26
+margin_bottom = 119.827
+custom_fonts/font = SubResource( 2 )
+text = "Resources:"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Menu_start" parent="." instance=ExtResource( 11 )]
+margin_left = 227.304
+margin_top = 445.0
+margin_right = 531.304
+margin_bottom = 573.0
+focus_neighbour_right = NodePath("../Go_main")
+custom_fonts/font = SubResource( 3 )
+text = "Let's Start  "
+icon = ExtResource( 13 )
+align = 2
+expand_icon = true
+reference_path = "res://Scenes/Select_screen.tscn"
+start_focused = true
+
+[connection signal="pressed" from="Button" to="WindowDialog" method="_on_Button_pressed"]
+[connection signal="pressed" from="Button2" to="Button2" method="_on_Button2_pressed"]
+[connection signal="pressed" from="Button3" to="Button3" method="_on_Button3_pressed"]
+[connection signal="pressed" from="Button4" to="Button4" method="_on_Button4_pressed"]

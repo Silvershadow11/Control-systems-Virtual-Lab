@@ -1,0 +1,91 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Scenes/GoBack.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Sprites/theory_bg.jpg" type="Texture" id=2]
+[ext_resource path="res://Themes/Esc_shortcut.tres" type="ShortCut" id=3]
+[ext_resource path="res://Fonts/VarelaRound-Regular.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://Fonts/RobotoFlex.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://Sprites/Compensator.png" type="Texture" id=6]
+
+[sub_resource type="DynamicFont" id=1]
+size = 31
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 21
+use_filter = true
+font_data = ExtResource( 5 )
+
+[node name="OptionScene" type="Node2D"]
+
+[node name="Background" type="TextureRect" parent="."]
+margin_left = -4.0
+margin_top = -4.0
+margin_right = 1031.0
+margin_bottom = 602.0
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Go Back" parent="." instance=ExtResource( 1 )]
+margin_left = 681.7
+margin_top = 389.04
+margin_right = 858.7
+margin_bottom = 442.04
+focus_neighbour_top = NodePath("../Next")
+focus_neighbour_bottom = NodePath(".")
+shortcut = ExtResource( 3 )
+reference_path = "res://Scenes/Theory.tscn"
+
+[node name="Next" parent="." instance=ExtResource( 1 )]
+margin_left = 681.7
+margin_top = 313.26
+margin_right = 858.7
+margin_bottom = 366.26
+focus_neighbour_top = NodePath(".")
+focus_neighbour_bottom = NodePath("../Go Back")
+shortcut = null
+text = "Next"
+reference_path = "res://Scenes/Theory_pg3.tscn"
+start_focused = true
+
+[node name="Title" type="Label" parent="."]
+margin_right = 692.0
+margin_bottom = 101.0
+custom_fonts/font = SubResource( 1 )
+text = "The Control System"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Paragraph" type="Label" parent="."]
+margin_left = 25.0
+margin_top = 105.0
+margin_right = 666.0
+margin_bottom = 595.0
+custom_fonts/font = SubResource( 2 )
+text = "The purpose of control system for a plan is to improve the following characteristics of the system:
+    1) Improve gain or bandwidth
+    2) Improve stability.
+    3) Track complex reference signals (periodic or non-linear)
+
+There are various types of compensators that achieve these objectives in a feedback control system. Two common types of compensators are lead and lag compensators. The transfer function of the compensator takes the form of:
+
+
+
+
+
+               K = Gain                 Tc = Time Constant                 α = Alpha"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Compensator" type="Sprite" parent="."]
+position = Vector2( 349.666, 462.221 )
+scale = Vector2( 0.703919, 0.720018 )
+texture = ExtResource( 6 )
